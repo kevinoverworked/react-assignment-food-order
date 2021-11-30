@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import CartIcon from "../Cart/CartIcon";
 import CartContext from "../../store/cart-context";
-
+import Button from "../UI/Button";
 import classes from "./HeaderCartButton.module.css";
 
 const HeaderCartButton = () => {
@@ -23,8 +23,13 @@ const HeaderCartButton = () => {
         };
     }, [cartCtx]);
 
+    const buttonClickHandler = (event) => {
+        event.preventDefault();
+        console.log("clicked");
+    };
+
     return (
-        <div className={`${classes.button} ${
+        <Button type="button" onClick={buttonClickHandler} className={`${classes.button} ${
             bumpStatus === "bump" ? classes.bump : ""
             }`}>
             <span className={classes.icon}>
@@ -32,7 +37,7 @@ const HeaderCartButton = () => {
             </span>
             <span>Your Cart</span>
             <span className={classes.badge}>{count}</span>
-        </div>
+        </Button>
     );
 };
 
