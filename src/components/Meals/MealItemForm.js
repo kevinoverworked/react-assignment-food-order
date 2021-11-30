@@ -17,7 +17,7 @@ const MealItemForm = (props) => {
         //console.log(amountInputRef.current.value);
         const data = props.data;
         cartCtx.onAddToCart(data, amountInputRef.current.value);
-
+        //cartCtx.onCartBumpHandler
     };
 
 

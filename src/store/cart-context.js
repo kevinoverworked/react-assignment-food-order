@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const CartContext = React.createContext({
     cartTotal: 0,
@@ -9,21 +9,6 @@ const CartContext = React.createContext({
 export const CartContextProvider = (props) => {
     const [cartTotal, setCartTotal] = useState(0);
     const [cartItems, setCartItems] = useState([]);
-
-    /*useEffect(() => {
-        clearTimeout();
-        const identifier = setTimeout(() => {
-            //localStorage.setItem("cartItems", cartItems);
-            setCartItems(prevCartItems => [...prevCartItems]);
-            console.log("cartItems= " + JSON.stringify(cartItems));
-
-        }, 500);
-
-        return () => {
-            clearTimeout(identifier);
-
-        };
-    }, [cartItems]);*/
 
     const updateCart = (data, amount) => {
         const cartIndex = cartItems.findIndex(item => item.id === data.id);
@@ -46,12 +31,9 @@ export const CartContextProvider = (props) => {
 
     const addToCartHandler = (data, amount) => {
         const newTotal = parseInt(cartTotal, 10) + parseInt(amount, 10);
-        localStorage.setItem("cartTotal", newTotal);
         setCartTotal(newTotal);
         setCartItems(updateCart(data, amount));
     }
-
-    
 
     return (
         <CartContext.Provider
