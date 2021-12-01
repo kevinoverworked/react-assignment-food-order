@@ -11,8 +11,7 @@ const MealItemForm = (props) => {
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
-        const data = props.data;
-        cartCtx.onAddToCart(data, amount);
+        cartCtx.onAddToCart(props.data, amount);
     };
 
     const amountChangeHandler = (event) => {

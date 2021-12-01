@@ -32,11 +32,6 @@ const DUMMY_MEALS = [
 ];
 
 const AvailableMeals = () => {
-    
-
-    const onAddHandler = () => {
-        console.log("Added");
-    };
     return (
         <Card className={classes.meals}>
             <ul>
@@ -46,7 +41,6 @@ const AvailableMeals = () => {
                         name={item.name}
                         description={item.description}
                         price={item.price}
-                        onAddToCart={onAddHandler}
                         data={item}
                     />;
                 })}

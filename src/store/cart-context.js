@@ -12,7 +12,6 @@ export const CartContextProvider = (props) => {
 
     const updateCartTotal = (amount) => {
         const newTotal = parseInt(cartTotal, 10) + parseInt(amount, 10);
-        console.log(newTotal);
         setCartTotal(newTotal);
     };
 
@@ -37,12 +36,11 @@ export const CartContextProvider = (props) => {
         if (cartIndex < 0) {
             data["total"] = parseInt(amount, 10);
             setCartItems([...cartItems, data]);
-
         } else {
             let newArray = updateCart(data, amount, cartIndex);
-            
             setCartItems(newArray);
         }
+        
         updateCartTotal(amount);
     };
 

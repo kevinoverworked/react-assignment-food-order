@@ -25,19 +25,15 @@ const HeaderCartButton = () => {
         };
     }, [cartCtx]);
 
-    const buttonClickHandler = (event) => {
-        setShowModal(true);
-    };
-
-    const clearModalHandler = () => {
-        setShowModal(false);
+    const modalHandler = (val) => {
+        setShowModal(val);
     };
 
     return (
         <Fragment>
             <Button
                 type="button"
-                onClick={buttonClickHandler}
+                onClick={() => modalHandler(true)}
                 className={`${classes.button} ${
                     bumpStatus === "bump" ? classes.bump : ""
                 }`}
@@ -48,7 +44,7 @@ const HeaderCartButton = () => {
                 <span>Your Cart</span>
                 <span className={classes.badge}>{count}</span>
             </Button>
-            {showModal && <Modal onClearModal={clearModalHandler} />}
+            {showModal && <Modal onClearModal={() => modalHandler(false)} />}
         </Fragment>
     );
 };
