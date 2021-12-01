@@ -4,7 +4,7 @@ import CartContext from "../../store/cart-context";
 import Button from "../UI/Button";
 import classes from "./Cart.module.css";
 
-const Cart = () => {
+const Cart = (props) => {
     const cartCtx = useContext(CartContext);
     const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
@@ -21,6 +21,13 @@ const Cart = () => {
         setCartTotalAmount(cartTotal);
     }, [cartCtx]);
 
+    const removeButtonHandler = () => {
+        console.log("remove button clicked");
+    };
+
+    const addButtonHandler = () => {
+        console.log("add button clicked");
+    };
 
     return (
         <Fragment>
@@ -31,6 +38,8 @@ const Cart = () => {
                         name={item.name}
                         price={item.price}
                         amount={item.total}
+                        onRemove={removeButtonHandler}
+                        onAdd={addButtonHandler}
                     />
                 ))}
             </ul>
@@ -39,7 +48,7 @@ const Cart = () => {
                 <span>${cartTotalAmount}</span>
             </div>
             <div className={classes.actions}>
-                <Button type="button" className={classes["button--alt"]} >Close</Button>
+                <Button type="button" onClick={props.onClick} className={classes["button--alt"]} >Close</Button>
                 <Button type="button" className={classes.button}>Order</Button>
             </div>
         </Fragment>

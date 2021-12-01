@@ -8,7 +8,6 @@ const CartContext = React.createContext({
 
 export const CartContextProvider = (props) => {
     const [cartTotal, setCartTotal] = useState(0);
-    const [cartTotalAmount, setCartTotalAmount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
 
     const updateCart = (data, amount) => {

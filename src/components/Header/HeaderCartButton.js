@@ -26,12 +26,10 @@ const HeaderCartButton = () => {
     }, [cartCtx]);
 
     const buttonClickHandler = (event) => {
-        event.preventDefault();
         setShowModal(true);
-        console.log("clicked");
     };
 
-    const clearFormHandler = () => {
+    const clearModalHandler = () => {
         setShowModal(false);
     };
 
@@ -50,7 +48,7 @@ const HeaderCartButton = () => {
                 <span>Your Cart</span>
                 <span className={classes.badge}>{count}</span>
             </Button>
-            {showModal && <Modal onClearForm={clearFormHandler} />}
+            {showModal && <Modal onClearModal={clearModalHandler} />}
         </Fragment>
     );
 };

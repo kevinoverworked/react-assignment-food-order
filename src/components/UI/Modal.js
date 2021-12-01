@@ -1,8 +1,7 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 import Card from "./Card";
 import Cart from "../Cart/Cart";
-import CartContext from "../../store/cart-context";
 import classes from "./Modal.module.css";
 
 const Backdrop = (props) => {
@@ -10,10 +9,9 @@ const Backdrop = (props) => {
 };
 
 const ModalOverlay = (props) => {
-    const cartCtx = useContext(CartContext);
     return (
         <Card className={classes.modal}>
-           <Cart />
+           <Cart onClick={props.onClick} />
         </Card>     
     );
 };
@@ -21,8 +19,8 @@ const ModalOverlay = (props) => {
 const Modal = (props) => {
     return (
         <Fragment>
-            {ReactDOM.createPortal(<Backdrop onClick={props.onClearForm}/>, document.getElementById("backdrop-root"))}
-            {ReactDOM.createPortal(<ModalOverlay />, document.getElementById("modal-root"))}
+            {ReactDOM.createPortal(<Backdrop onClick={props.onClearModal}/>, document.getElementById("backdrop-root"))}
+            {ReactDOM.createPortal(<ModalOverlay onClick={props.onClearModal} />, document.getElementById("modal-root"))}
         </Fragment>
     );
 };
