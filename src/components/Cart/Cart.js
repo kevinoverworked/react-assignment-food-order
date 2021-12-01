@@ -18,8 +18,14 @@ const Cart = (props) => {
         setCartTotalAmount(cartTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
     }, [cartCtx]);
 
-    const buttonHandler = (data, amount) => {
+    const addRemoveHandler = (data, amount) => {
         cartCtx.onAddToCart(data, amount);
+    };
+
+    const orderHandler = () => {
+        console.log("Ordering..");
+        console.log(cartCtx.cartItems.map((item) => { return `${item.name} x${item.total}` }));
+        console.log("Total Amount: " + cartTotalAmount);
     };
 
     return (
@@ -31,8 +37,8 @@ const Cart = (props) => {
                         name={item.name}
                         price={parseFloat(item.price)}
                         amount={item.total}
-                        onRemove={() => buttonHandler(item, -1)}
-                        onAdd={() => buttonHandler(item, 1)}
+                        onRemove={() => addRemoveHandler(item, -1)}
+                        onAdd={() => addRemoveHandler(item, 1)}
                     />
                 ))}
             </ul>
@@ -42,7 +48,7 @@ const Cart = (props) => {
             </div>
             <div className={classes.actions}>
                 <Button type="button" onClick={props.onClick} className={classes["button--alt"]} >Close</Button>
-                <Button type="button" className={classes.button}>Order</Button>
+                <Button type="button" onClick={orderHandler} className={classes.button}>Order</Button>
             </div>
         </Fragment>
     );
