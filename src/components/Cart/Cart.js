@@ -24,7 +24,7 @@ const Cart = (props) => {
 
     const orderHandler = () => {
         console.log("Ordering..");
-        console.log(cartCtx.cartItems.map((item) => { return `${item.name} x${item.total}` }));
+        cartCtx.cartItems.forEach((item) => { console.log(`${item.name} x${item.total}`) });
         console.log("Total Amount: " + cartTotalAmount);
     };
 
