@@ -13,20 +13,20 @@ const Cart = (props) => {
         
         cartCtx.cartItems.forEach((item) => {
             const total = parseInt(item.total, 10);
-            const price = item.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-
-            cartTotal = cartTotal + (total * price);
-            console.log(cartTotal);
+            const price = (total * item.price);
+            cartTotal += Number(price);
         });
-        setCartTotalAmount(cartTotal);
+        setCartTotalAmount(cartTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
     }, [cartCtx]);
 
-    const removeButtonHandler = () => {
-        console.log("remove button clicked");
+    const removeButtonHandler = (data) => {
+        //cartCtx.onUpdateCart(data, -1);
+        cartCtx.onAddToCart(data, -1);
     };
 
-    const addButtonHandler = () => {
-        console.log("add button clicked");
+    const addButtonHandler = (data) => {
+        //cartCtx.onUpdateCart(data, 1);
+        cartCtx.onAddToCart(data, 1);
     };
 
     return (
@@ -36,10 +36,10 @@ const Cart = (props) => {
                     <CartItem
                         key={item.id}
                         name={item.name}
-                        price={item.price}
+                        price={parseFloat(item.price)}
                         amount={item.total}
-                        onRemove={removeButtonHandler}
-                        onAdd={addButtonHandler}
+                        onRemove={() => removeButtonHandler(item)}
+                        onAdd={() => addButtonHandler(item)}
                     />
                 ))}
             </ul>

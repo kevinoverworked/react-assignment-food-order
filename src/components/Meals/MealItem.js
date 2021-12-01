@@ -11,7 +11,7 @@ const MealItem = (props) => {
                     {props.description}
                 </div>
                 <div className={classes.price}>
-                    ${props.price}
+                    ${props.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}
                 </div>
             </div>
             <MealItemForm name={props.name} data={props.data} />
