@@ -13,20 +13,13 @@ const Cart = (props) => {
         
         cartCtx.cartItems.forEach((item) => {
             const total = parseInt(item.total, 10);
-            const price = (total * item.price);
-            cartTotal += Number(price);
+            cartTotal += Number(total * item.price);
         });
         setCartTotalAmount(cartTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
     }, [cartCtx]);
 
-    const removeButtonHandler = (data) => {
-        //cartCtx.onUpdateCart(data, -1);
-        cartCtx.onAddToCart(data, -1);
-    };
-
-    const addButtonHandler = (data) => {
-        //cartCtx.onUpdateCart(data, 1);
-        cartCtx.onAddToCart(data, 1);
+    const buttonHandler = (data, amount) => {
+        cartCtx.onAddToCart(data, amount);
     };
 
     return (
@@ -38,8 +31,8 @@ const Cart = (props) => {
                         name={item.name}
                         price={parseFloat(item.price)}
                         amount={item.total}
-                        onRemove={() => removeButtonHandler(item)}
-                        onAdd={() => addButtonHandler(item)}
+                        onRemove={() => buttonHandler(item, -1)}
+                        onAdd={() => buttonHandler(item, 1)}
                     />
                 ))}
             </ul>
