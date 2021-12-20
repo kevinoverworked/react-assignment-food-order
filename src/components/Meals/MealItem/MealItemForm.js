@@ -20,14 +20,15 @@ const MealItemForm = (props) => {
 
     return (
         <form className={classes.form} onSubmit={formSubmitHandler}>
-            <Input
-                type="number"
-                label="Amount"
-                name={props.name}
-                min="1"
-                value={amount}
-                onChange={amountChangeHandler}
-            />
+            <Input input={{
+                type: "number",
+                label: "Amount",
+                id: props.name.toLowerCase(),
+                min: "1",
+                step: "1",
+                value: amount,
+                onChange: amountChangeHandler
+            }}/>
             <Button type="submit">+ Add</Button>
         </form>
     );
