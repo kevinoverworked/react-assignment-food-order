@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import Input from "../UI/Input";
-import Button from "../UI/Button";
-import CartContext from "../../store/cart-context";
+import Input from "../../UI/Input";
+import Button from "../../UI/Button";
+import CartContext from "../../../store/cart-context";
 
 import classes from "./MealItemForm.module.css";
 
