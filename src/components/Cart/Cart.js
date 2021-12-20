@@ -30,7 +30,7 @@ const Cart = (props) => {
     };
 
     return (
-        <Modal>
+        <Modal onClose={props.showHideModal}>
             <ul className={classes["cart-items"]}>
                 {cartCtx.cartItems.map((item) => (
                     <CartItem
