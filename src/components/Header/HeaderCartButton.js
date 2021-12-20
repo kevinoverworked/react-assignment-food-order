@@ -2,14 +2,12 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import CartIcon from "../Cart/CartIcon";
 import CartContext from "../../store/cart-context";
 import Button from "../UI/Button";
-import Modal from "../UI/Modal";
 import classes from "./HeaderCartButton.module.css";
 
-const HeaderCartButton = () => {
+const HeaderCartButton = (props) => {
     const cartCtx = useContext(CartContext);
     const [count, setCount] = useState(0);
     const [bumpStatus, setBumpStatus] = useState("");
-    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         clearTimeout();
@@ -25,15 +23,12 @@ const HeaderCartButton = () => {
         };
     }, [cartCtx]);
 
-    const modalHandler = (val) => {
-        setShowModal(val);
-    };
 
     return (
         <Fragment>
             <Button
                 type="button"
-                onClick={() => modalHandler(true)}
+                onClick={props.onOpenModal}
                 className={`${classes.button} ${
                     bumpStatus === "bump" ? classes.bump : ""
                 }`}
@@ -44,7 +39,7 @@ const HeaderCartButton = () => {
                 <span>Your Cart</span>
                 <span className={classes.badge}>{count}</span>
             </Button>
-            {showModal && <Modal onClearModal={() => modalHandler(false)} />}
+            
         </Fragment>
     );
 };

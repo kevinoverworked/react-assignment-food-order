@@ -1,8 +1,9 @@
-import React, { Fragment, useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CartItem from "./CartItem";
 import CartContext from "../../store/cart-context";
 import Button from "../UI/Button";
 import classes from "./Cart.module.css";
+import Modal from "../UI/Modal";
 
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
@@ -29,7 +30,7 @@ const Cart = (props) => {
     };
 
     return (
-        <Fragment>
+        <Modal>
             <ul className={classes["cart-items"]}>
                 {cartCtx.cartItems.map((item) => (
                     <CartItem
@@ -47,10 +48,10 @@ const Cart = (props) => {
                 <span>${cartTotalAmount}</span>
             </div>
             <div className={classes.actions}>
-                <Button type="button" onClick={props.onClick} className={classes["button--alt"]} >Close</Button>
+                <Button type="button" onClick={props.showHideModal} className={classes["button--alt"]} >Close</Button>
                 <Button type="button" onClick={orderHandler} className={classes.button}>Order</Button>
             </div>
-        </Fragment>
+        </Modal>
     );
 };
 
