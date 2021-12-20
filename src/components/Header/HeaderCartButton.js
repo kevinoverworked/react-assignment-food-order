@@ -28,7 +28,7 @@ const HeaderCartButton = (props) => {
         <Fragment>
             <Button
                 type="button"
-                onClick={props.onOpenModal}
+                onClick={props.onClick}
                 className={`${classes.button} ${
                     bumpStatus === "bump" ? classes.bump : ""
                 }`}
