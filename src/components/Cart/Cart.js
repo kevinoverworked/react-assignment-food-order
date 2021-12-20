@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import CartItem from "./CartItem";
 import CartContext from "../../store/cart-context";
 import Button from "../UI/Button";
@@ -7,49 +7,45 @@ import Modal from "../UI/Modal";
 
 const Cart = (props) => {
     const cartCtx = useContext(CartContext);
-    const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
-    useEffect(() => {
-        let cartTotal = 0;
-        
-        cartCtx.cartItems.forEach((item) => {
-            const total = parseInt(item.total, 10);
-            cartTotal += Number(total * item.price);
-        });
-        setCartTotalAmount(cartTotal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
-    }, [cartCtx]);
+    const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+    const hasItems = cartCtx.items.length > 0;
 
-    const addRemoveHandler = (data, amount) => {
-        cartCtx.onUpdateCart(data, amount);
+    const cartItemAddHandler = (item) => {
+        cartCtx.addItem({...item, amount: 1});
+    };
+
+    const cartItemRemoverHandler = (id) => {
+        cartCtx.removeItem(id);
     };
 
     const orderHandler = () => {
         console.log("Ordering..");
-        cartCtx.cartItems.forEach((item) => { console.log(`${item.name} x${item.total}`) });
-        console.log("Total Amount: " + cartTotalAmount);
+        cartCtx.items.forEach((item) => { console.log(`${item.name} x${item.amount}`) });
+        console.log("Total Amount: " + totalAmount);
     };
 
     return (
         <Modal onClose={props.showHideModal}>
             <ul className={classes["cart-items"]}>
-                {cartCtx.cartItems.map((item) => (
+                {cartCtx.items.map((item) => (
                     <CartItem
                         key={item.id}
                         name={item.name}
                         price={parseFloat(item.price)}
-                        amount={item.total}
-                        onRemove={() => addRemoveHandler(item, -1)}
-                        onAdd={() => addRemoveHandler(item, 1)}
+                        amount={item.amount}
+                        onAdd={cartItemAddHandler.bind(null, item)}
+                        onRemove={cartItemRemoverHandler.bind(null, item.id)}
                     />
                 ))}
             </ul>
             <div className={classes.total}>
                 <span>Total Amount</span>
-                <span>${cartTotalAmount}</span>
+                <span>{totalAmount}</span>
             </div>
             <div className={classes.actions}>
                 <Button type="button" onClick={props.showHideModal} className={classes["button--alt"]} >Close</Button>
-                <Button type="button" onClick={orderHandler} className={classes.button}>Order</Button>
+                {hasItems && <Button type="button" onClick={orderHandler} className={classes.button}>Order</Button> }
             </div>
         </Modal>
     );
