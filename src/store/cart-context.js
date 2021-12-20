@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const CartContext = React.createContext({
     cartTotal: 0,
     cartItems: [],
-    onAddToCart: () => {}
+    onUpdateCart: () => {}
 });
 
 export const CartContextProvider = (props) => {
@@ -15,7 +15,7 @@ export const CartContextProvider = (props) => {
         setCartTotal(newTotal);
     };
 
-    const updateCart = (data, amount, cartIndex) => {
+    const updateCartArray = (data, amount, cartIndex) => {
         let newArray = [...cartItems];
         const newTotal = parseInt(newArray[cartIndex].total, 10) + parseInt(amount, 10);
 
@@ -30,14 +30,14 @@ export const CartContextProvider = (props) => {
         return newArray;
     };
 
-    const addToCartHandler = (data, amount) => {
+    const updateCartHandler = (data, amount) => {
         const cartIndex = cartItems.findIndex(item => item.id === data.id);
         
         if (cartIndex < 0) {
             data["total"] = parseInt(amount, 10);
             setCartItems([...cartItems, data]);
         } else {
-            let newArray = updateCart(data, amount, cartIndex);
+            let newArray = updateCartArray(data, amount, cartIndex);
             setCartItems(newArray);
         }
         
@@ -49,7 +49,7 @@ export const CartContextProvider = (props) => {
             value={{
                 cartTotal: cartTotal,
                 cartItems: cartItems,
-                onAddToCart: addToCartHandler,
+                onUpdateCart: updateCartHandler,
             }}
         >
             {props.children}

@@ -20,7 +20,7 @@ const Cart = (props) => {
     }, [cartCtx]);
 
     const addRemoveHandler = (data, amount) => {
-        cartCtx.onAddToCart(data, amount);
+        cartCtx.onUpdateCart(data, amount);
     };
 
     const orderHandler = () => {
